@@ -5,7 +5,7 @@ async function seed() {
     await User.create({
         role: 'worker',
         username: 'Testoigenännu en gång',
-        password: 'skjdfhsökgf'
+        password: 'skjdfhsösdfsdfkgf'
     })
 
 }
