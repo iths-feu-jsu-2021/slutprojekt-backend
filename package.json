@@ -1,0 +1,25 @@
+{
+  "name": "slutprojekt-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusJsU21/slutprojekt-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markusJsU21/slutprojekt-backend/issues"
+  },
+  "homepage": "https://github.com/markusJsU21/slutprojekt-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
