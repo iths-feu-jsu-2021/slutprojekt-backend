@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Matter.init({
-    status: DataTypes.ENUM('open', 'pending', 'closed'),
+    status: {
+      type: DataTypes.ENUM('open', 'pending', 'closed'),
+      defaultValue: 'pending',
+    },
     title: DataTypes.STRING,
     content: DataTypes.STRING
   }, {

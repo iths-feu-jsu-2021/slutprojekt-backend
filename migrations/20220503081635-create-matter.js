@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.ENUM('open', 'pending', 'closed')
+        type: Sequelize.ENUM('open', 'pending', 'closed'),
+        defaultValue: 'pending',
       },
       title: {
         type: Sequelize.STRING
