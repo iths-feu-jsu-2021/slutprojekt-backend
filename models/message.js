@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Message.belongsTo(models.Matter
+      //   , {
+      //   foreginKey: {customer: userId},
+      //   onDelete: 'CASCADE'
+      // }
+      )
       // define association here
     }
   }
