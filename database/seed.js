@@ -1,12 +1,17 @@
 
-const User = require('../models')
+const {User} = require('../models')
 
 async function seed() {
-    await User.create({
-        role: 'worker',
-        username: 'Testoigenännu en gång',
-        password: 'skjdfhsösdfsdfkgf'
-    })
+    try{
+        await User.create({
+            role: 'worker',
+            username: 'Testoigenännu en gång',
+            password: 'skjdfhsösdfsdfkgf'
+        })
+    }
+    catch(error){
+        console.log('Error är: ' + error)
+    }
 
 }
 

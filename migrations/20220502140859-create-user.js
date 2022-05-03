@@ -8,14 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      username: {
         type: Sequelize.STRING
       },
       password: {
         type: Sequelize.STRING
       },
       role: {
-        type: Sequelize.ENUM('worker', 'customer')
+        type: Sequelize.ENUM('worker', 'customer', 'admin')
       },
       createdAt: {
         allowNull: false,

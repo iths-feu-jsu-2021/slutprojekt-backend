@@ -1,7 +1,8 @@
 {
   "development": {
-    "database": "ingeBra.db",
-    "dialect": "sqlite"
+    "storage": "ingeBra.db",
+    "dialect": "sqlite",
+    "logging": false
   },
   "test": {
     "username": "root",

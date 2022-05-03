@@ -1,6 +1,3 @@
-const db = require('./connection')
-require('../models')
-//const {User} = require('../models')
-
-
+const db = require('../models')
+// require('dotenv').config()
 db.sync({force: true})
