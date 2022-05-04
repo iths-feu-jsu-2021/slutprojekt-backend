@@ -18,6 +18,12 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
+      workerId: {
+        type: Sequelize.INTEGER
+      },
+      customerId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

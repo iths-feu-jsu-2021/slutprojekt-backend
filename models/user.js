@@ -30,15 +30,23 @@ module.exports = (sequelize, DataTypes) => {
 })
 
 User.authenticate = async (username, password) => {
-  const user = await User.findOne({where: {username}})
+  try{
+    const user = await User.findOne({where: {username}})
 
-  const passwordMatch = bcrypt.compareSync(password, user.password)
+    const passwordMatch = bcrypt.compareSync(password, user.password)
 
-  if (passwordMatch) {
-      const payload = {
-          username: username
-      }
-      return jwt.sign(payload, process.env.JWT_SECRET)
+    if (passwordMatch) {
+      console.log(user)
+        const payload = {
+            username: user.username,
+            id: user.id
+        }
+        return jwt.sign(payload, process.env.JWT_SECRET)
+    }
+
+  }
+  catch(err){
+    console.log('Error är ' + err)
   }
 
 }

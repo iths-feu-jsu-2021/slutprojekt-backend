@@ -11,11 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Message.belongsTo(models.Matter
-      //   , {
-      //   foreginKey: {customer: userId},
-      //   onDelete: 'CASCADE'
-      // }
+        , {
+        foreginKey: 'MatterId',
+        onDelete: 'CASCADE',
+        allowNull: false
+      }
       )
+      Message.belongsTo(models.User)
       // define association here
     }
   }

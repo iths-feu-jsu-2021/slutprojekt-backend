@@ -11,6 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Matter.belongsTo(models.User, {
+        foreignKey: 'workerId',
+        targetKey: 'id',
+        allowNull: false
+      })
+      Matter.belongsTo(models.User, {
+        foreignKey: 'customerId',
+        targetKey: 'id',
+        allowNull: false
+      })
     }
   }
   Matter.init({
