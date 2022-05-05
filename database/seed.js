@@ -8,17 +8,21 @@ async function seed() {
             username: 'Testoigenännu en gång',
             password: 'skjdfhsösdfsdfkgf'
         })
-       const customer = await User.create({
+       const customerOne = await User.create({
             role: 'customer',
             username: 'Seedad customer',
             password: 'skjdfhsösdfsdfkgf'
         })
-
+        const customerTwo = await User.create({
+            role: 'customer',
+            username: 'Meeko',
+            password: 'Shiba'
+        })
         const matter = await Matter.create({
             title: 'Ett seedat ärende',
             content: 'Ett seedad ärendecontent',
             workerId: worker.id,
-            customerId: customer.id,
+            customerId: customerOne.id,
             role: 'worker'
         })
 
