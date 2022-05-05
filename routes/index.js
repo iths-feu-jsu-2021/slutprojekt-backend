@@ -16,6 +16,6 @@ router.get('/', () =>{
 })
 router.post('/matter', matterValidator.checkRole, matterController.create )
 router.post('/message', messageController.create)
-router.get('/matters', matterController.getAll)
+router.get('/matter', matterController.getAll)
 router.get('/customers', customerController.getAll)
 module.exports = router

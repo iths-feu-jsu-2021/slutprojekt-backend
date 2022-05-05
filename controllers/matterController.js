@@ -19,8 +19,8 @@ module.exports = {
         try{
             const token = req.header('Authorization').replace('Bearer ', '')
             const user = jwt.verify(token, process.env.JWT_SECRET)
-            const matters = await Matter.findAll({where: {WorkerId: user.id}} || {where: {CustomerId: user.id}} )
-            console.log(matters)
+            const matters = await Matter.findAll({where: {workerId: user.id}} || {where: {customerId: user.id}} )
+            res.json(matters)
         }
         catch(err){
             console.log(err)
