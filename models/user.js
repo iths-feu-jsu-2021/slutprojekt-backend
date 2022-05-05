@@ -39,7 +39,8 @@ User.authenticate = async (username, password) => {
       console.log(user)
         const payload = {
             username: user.username,
-            id: user.id
+            id: user.id,
+            role: user.role
         }
         return jwt.sign(payload, process.env.JWT_SECRET)
     }

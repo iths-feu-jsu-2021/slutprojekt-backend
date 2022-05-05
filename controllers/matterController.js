@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
     create: async (req, res) =>{
-        const {title, content, customerId} = req.body
+        const {title, content, customerId, workerId} = req.body
         try{
-            await Matter.create({title, content, customerId})
+            await Matter.create({title, content, customerId, workerId})
             res.json('Matter was created')
         }
         catch(err){
@@ -19,8 +19,8 @@ module.exports = {
         try{
             const token = req.header('Authorization').replace('Bearer ', '')
             const user = jwt.verify(token, process.env.JWT_SECRET)
-            const matters = await Matter.findAll({where: {WorkerId: user.id}} || {where: {CustomerId: user.id}} )
-            console.log(matters)
+            const matters = await Matter.findAll({where: {workerId: user.id}} || {where: {customerId: user.id}} )
+            res.json(matters)
         }
         catch(err){
             console.log(err)
