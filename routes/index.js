@@ -2,8 +2,8 @@ const accountController = require('../controllers/accountController')
 const matterController = require('../controllers/matterController')
 const messageController = require('../controllers/messageController')
 const customerController = require('../controllers/customerController')
-const auth = require('../middlewares/auth')
 const adminController = require('../controllers/adminController')
+const auth = require('../middlewares/auth')
 //const messageValidator = require('../validations/messageValidator')
 const { Router } = require('express')
 const res = require('express/lib/response')
@@ -20,8 +20,12 @@ router.post('/matter', auth.checkIfWorker, matterController.create )
 router.get('/matter', matterController.getAll)
 // message endpoints
 router.post('/message', messageController.create)
+
 // custom endpoints
 router.get('/customers', customerController.getAll)
-//
+
+//admin enpoints
 router.post('/user', auth.checkIfAdmin, adminController.createUser)
+router.get('/user', auth.checkIfAdmin, adminController.getAllUsers)
+router.patch('/user', auth.checkIfAdmin, adminController.updateUser)
 module.exports = router

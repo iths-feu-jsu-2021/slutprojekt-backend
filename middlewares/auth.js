@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 
+
 module.exports = {
     checkIfWorker: async(req, res, next)=>{
         try {
@@ -31,6 +32,9 @@ module.exports = {
                     if(user.role === 'admin'){
                         req.body.adminId = user.id
                         next()
+                    }
+                    else{
+                        res.json('Unauthorized')
                     }
                 }catch(err){
                     console.log('Error är: ' + err)
