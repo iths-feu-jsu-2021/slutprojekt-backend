@@ -18,6 +18,11 @@ async function seed() {
             username: 'Meeko',
             password: 'Shiba'
         })
+        const admin = await User.create({
+            role: 'admin',
+            username: 'admin',
+            password: 'admin'
+        })
         const matter = await Matter.create({
             title: 'Ett seedat ärende',
             content: 'Ett seedad ärendecontent',
