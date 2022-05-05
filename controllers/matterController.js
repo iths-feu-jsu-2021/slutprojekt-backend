@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
     create: async (req, res) =>{
-        const {title, content} = req.body
+        const {title, content, customerId} = req.body
         try{
-            await Matter.create({title, content})
+            await Matter.create({title, content, customerId})
             res.json('Matter was created')
         }
         catch(err){

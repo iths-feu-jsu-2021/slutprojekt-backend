@@ -19,10 +19,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       workerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: 'User', key: 'id'}
       },
       customerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: 'User', key: 'id'}
       },
       createdAt: {
         allowNull: false,
