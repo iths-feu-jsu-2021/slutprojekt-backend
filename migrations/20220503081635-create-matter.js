@@ -20,11 +20,11 @@ module.exports = {
       },
       workerId: {
         type: Sequelize.INTEGER,
-        references: {model: 'User', key: 'id'}
+        references: {model: 'Users', key: 'id'}
       },
       customerId: {
         type: Sequelize.INTEGER,
-        references: {model: 'User', key: 'id'}
+        references: {model: 'Users', key: 'id'}
       },
       createdAt: {
         allowNull: false,

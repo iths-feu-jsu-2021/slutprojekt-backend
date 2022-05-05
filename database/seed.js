@@ -32,16 +32,16 @@ async function seed() {
         })
 
 
-        await Message.create({
-            title: 'Seedad messagetitle',
-            content: 'Seedad messagecontent',
-            img: 'Seedad imgpath',
-            matter: matter.id
-            //matter: 'seedat matterId'
-        })
+        // await Message.create({
+        //     title: 'Seedad messagetitle',
+        //     content: 'Seedad messagecontent',
+        //     img: 'Seedad imgpath',
+        //     matter: matter.id
+        //     //matter: 'seedat matterId'
+        // })
     }
     catch(error){
-        console.log('Error är: ' + error)
+        console.log('Seederror är: ' + error)
     }
 
 }

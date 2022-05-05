@@ -14,7 +14,7 @@ module.exports = {
             res.json('User created')
         }
         catch(err){
-            console.log('Error är: ' + err)
+            console.log('AccountControllerError är: ' + err)
         }
     },
 
