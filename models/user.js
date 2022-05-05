@@ -52,5 +52,12 @@ User.authenticate = async (username, password) => {
   }
 
 }
+
+User.changePassword = async (password, id)=>{
+  const user = await User.findByPk(id)
+  password = bcrypt.hashSync(password, 10)
+  return password
+
+}
   return User;
 };

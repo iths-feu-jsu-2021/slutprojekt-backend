@@ -26,17 +26,18 @@ module.exports = {
         try{
             const {id, username, password, role} = req.body
             const user = await User.findByPk(id)
-            if(user.username != username){
+            if(password != ''){
+               const newPassword = await User.changePassword(password, id)
+               await user.update({
+                   password: newPassword
+               })
+            }
+            if(user.username != username && username != ''){
                 await user.update({
                     username: username
                 })
             }
-            if(user.password != password){
-                await user.update({
-                    password: password
-                })
-            }
-            if(user.role != role){
+            if(user.role != role  && role != ''){
                 await user.update({
                     role: role
                 })
