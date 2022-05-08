@@ -1,13 +1,34 @@
-const { body, validationResult } = require('express-validator')
+const { check, body, validationResult } = require('express-validator')
 
+
+const validator = (validations) => async (req,res,next) => {
+    for (let validation of validations) {
+      const result = await validation.run(req);
+      if (result.errors.length) break;
+    }
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      return next();
+    }
+
+
+    res.status(400).json({ errors: errors.array()});
+
+  }
 
 module.exports = {
 
-    password: (req, res, next)=>{
-        console.log('validations/index. body password är:')
-        console.log(body('password'))
+    password: validator([check('password')
+        .isLength({min: 7, max: 42})
+        .withMessage('Password needs to be between 7 and 42 characters long')])
 
-        next()
-    }
+    // password: (req, res, next)=>{
+    //     body('password').isLength({ min: 5 })
+    //     const errors = validationResult(req)
+    //     if(!errors.isEmpty()){
+    //         return res.status(400).json({ errors: errors.array() })
+    //     }
+    //     next()
+    // }
 
 }
