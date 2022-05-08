@@ -37,7 +37,7 @@ User.authenticate = async (username, password) => {
     const passwordMatch = bcrypt.compareSync(password, user.password)
 
     if (passwordMatch) {
-      console.log(user)
+
         const payload = {
             username: user.username,
             id: user.id,
