@@ -18,7 +18,7 @@ const validator = (validations) => async (req,res,next) => {
 
 module.exports = {
 
-    password: validator([check('password')
+    createUser: validator([check('password')
         .isLength({min: 7, max: 42})
         .withMessage('Password needs to be between 7 and 42 characters long')])
 
