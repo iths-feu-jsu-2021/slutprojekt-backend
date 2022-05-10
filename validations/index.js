@@ -20,6 +20,18 @@ const validator = (validations) => async (req,res,next) => {
 
 module.exports = {
 
+    createMatter: validator([
+       check('title')
+        .exists()
+        .withMessage('Please supply a title'),
+       check('content')
+         .exists()
+         .withMessage('Please supply a description of the matter'),
+       check('customerId')
+          .exists()
+          .withMessage('Please supply the ID of concerned customer')
+    ]),
+
      createUser: validator([
        check('password')
          .isLength({min: 7, max: 42})
