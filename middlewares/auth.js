@@ -1,16 +1,25 @@
 const jwt = require('jsonwebtoken')
+const errorHandeling = require('./errorHandeling')
 
 
 module.exports = {
+
+    setRole: async(req, res, next)=>{
+        try {
+            const token = req.header('Authorization').replace('Bearer ', '')
+            const user = jwt.verify(token, process.env.JWT_SECRET)
+            req.user = user
+            next()
+            } catch(err) {
+                console.log(err)
+            }
+    },
+
     checkIfWorker: async(req, res, next)=>{
         try {
-        const token = req.header('Authorization').replace('Bearer ', '')
-        const user = jwt.verify(token, process.env.JWT_SECRET)
-        if(user.role === 'worker'){
-            req.body.workerId = user.id
-            next()
-        }
-
+            if(req.user.role === 'worker'){
+                next()
+            }
         } catch(err) {
             console.log(err)
         }
@@ -26,18 +35,25 @@ module.exports = {
                 // }
             },
             checkIfAdmin: async(req, res, next)=>{
-                try{
-                    const token = req.header('Authorization').replace('Bearer ', '')
-                    const user = jwt.verify(token, process.env.JWT_SECRET)
-                    if(user.role === 'admin'){
-                        req.body.adminId = user.id
+                try {
+                    if(req.user.role === 'admin'){
                         next()
+                    }else{
+                        errorHandeling.unauthorized(req, res)
                     }
-                    else{
-                        res.json('Unauthorized')
+                } catch(err) {
+                    console.log(err)
+                }
+            },
+            checkIfAdminOrWorker: async(req, res, next)=>{
+                try {
+                    if(req.user.role === 'admin' || req.user.role === 'worker'){
+                        next()
+                    }else{
+                        errorHandeling.unauthorized(req, res)
                     }
-                }catch(err){
-                    console.log('Error är: ' + err)
+                } catch(err) {
+                    console.log(err)
                 }
             }
         }

@@ -6,8 +6,6 @@ const messageController = require('../controllers/messageController')
 const customerController = require('../controllers/customerController')
 const adminController = require('../controllers/adminController')
 
-const errorHandler = require('../middlewares/errorHandeling')
-
 // const validations = require('../validations')
 const validate = require('../validations')
 
@@ -20,8 +18,9 @@ const router = new Router()
 
 //account endpoints
 //OBS denna endpoint och router post /user gör samma sak! Välj vilken som ska användas.
-router.post('/register', accountController.create)
+//router.post('/register', accountController.create)
 router.post('/login', accountController.login)
+router.use(auth.setRole)
 router.get('/', () =>{
     res.json('server funkar')
 })
@@ -34,10 +33,10 @@ router.post('/message', messageController.create)
 
 // custom endpoints
 //lägg på auth
-router.get('/customers', customerController.getAll)
+router.get('/customers', auth.checkIfAdmin, customerController.getAll)
 
 //admin enpoints
-router.post('/user', auth.checkIfAdmin, validate.createUser, adminController.createUser)
+router.post('/user', validate.createUser, adminController.createUser)
 router.get('/user', auth.checkIfAdmin, adminController.getAllUsers)
 router.patch('/user', auth.checkIfAdmin, adminController.updateUser)
 module.exports = router

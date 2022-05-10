@@ -14,10 +14,13 @@ module.exports = {
     }
     next()
    },
-   requestHandler: (req,res) => {
+   requestHandler: (req,res, next) => {
     if(!req.header('Authorization')){
     throw new HTTPException(401, "Missing access token")
     }
     next()
+    },
+    unauthorized: (req, res)=>{
+        res.json('Du är inte auktoriserad för att göra detta')
     }
 }

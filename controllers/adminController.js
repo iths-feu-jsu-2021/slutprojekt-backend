@@ -1,16 +1,18 @@
 const res = require('express/lib/response')
+const { errorHandler } = require('../middlewares/errorHandeling')
 const {User} = require('../models')
-const user = require('../models/user')
+// const user = require('../models/user')
 
 module.exports = {
     createUser: async(req, res)=>{
-        try{
-            const {role, username, password, email} = req.body
-            const user = await User.create({role, username, password, email})
-            res.json('User created: ' + user)
-        }catch(err){
-            console.log('AdminControllerError är ' + err)
-        }
+
+            try{
+                const {role, username, password, email} = req.body
+                const user = await User.create({role, username, password, email})
+                res.json('User created: ' + user)
+            }catch(err){
+                console.log('AdminControllerError är ' + err)
+            }
     },
 
     getAllUsers: async(req, res)=>{
