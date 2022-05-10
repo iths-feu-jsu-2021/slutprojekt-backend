@@ -33,6 +33,8 @@ module.exports = {
            .isEmail()
            .withMessage('Invalid email format')
        ])
+
+
  }
 
       //role, username, password, email
