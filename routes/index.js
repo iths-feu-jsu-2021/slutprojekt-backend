@@ -25,18 +25,19 @@ router.get('/', () =>{
     res.json('server funkar')
 })
 // matter endpoints
-router.post('/matter', auth.checkIfWorker, matterController.create )
-router.get('/matter', matterController.getAll)
+router.post('/matter', auth.checkIfAdminOrWorker, matterController.create )
+router.get('/matter', auth.checkIfAdminOrWorker, matterController.getAll)
+router.patch('/matter', auth.checkIfAdminOrWorker, matterController.update)
 
 // message endpoints
 router.post('/message', messageController.create)
 
 // custom endpoints
 //lägg på auth
-router.get('/customers', auth.checkIfAdmin, customerController.getAll)
+router.get('/customers', auth.checkIfAdminOrWorker, customerController.getAll)
 
 //admin enpoints
-router.post('/user', validate.createUser, adminController.createUser)
+router.post('/user', validate.createUser, auth.checkIfAdmin, adminController.createUser)
 router.get('/user', auth.checkIfAdmin, adminController.getAllUsers)
 router.patch('/user', auth.checkIfAdmin, adminController.updateUser)
 module.exports = router

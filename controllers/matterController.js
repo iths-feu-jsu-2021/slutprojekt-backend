@@ -24,5 +24,26 @@ module.exports = {
         catch(err){
             console.log(err)
         }
+    },
+
+    update: async(req, res)=>{
+        try {
+            const {matterId, status, workerId} = req.body
+            const matter = await Matter.findOne({where: {id: matterId}})
+            if(matter.status != status && status != ''){
+                await matter.update({
+                    status: status
+                })
+            }
+            if(matter.workerId != workerId && workerId != ''){
+                await matter.update({
+                    workerId: workerId
+                })
+            }
+            res.json('Matter updated')
+        }catch(err){
+            console.log(err)
+        }
     }
+
 }
