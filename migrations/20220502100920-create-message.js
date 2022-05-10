@@ -17,6 +17,14 @@ module.exports = {
       img: {
         type: Sequelize.STRING
       },
+      matterId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Matters', key: 'id'}
+      },
+      senderId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Users', key: 'id'}
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -6,22 +6,26 @@ async function seed() {
        const worker = await User.create({
             role: 'worker',
             username: 'Testoigenännu en gång',
-            password: 'skjdfhsösdfsdfkgf'
+            password: 'skjdfhsösdfsdfkgf',
+            email: 'worker@email.com'
         })
        const customerOne = await User.create({
             role: 'customer',
             username: 'Seedad customer',
-            password: 'skjdfhsösdfsdfkgf'
+            password: 'skjdfhsösdfsdfkgf',
+            email: 'customerOne@email.com'
         })
         const customerTwo = await User.create({
             role: 'customer',
             username: 'Meeko',
-            password: 'Shiba'
+            password: 'Shiba',
+            email: 'customerTwo@email.com'
         })
         const admin = await User.create({
             role: 'admin',
             username: 'admin',
-            password: 'admin'
+            password: 'admin',
+            email: 'admin@email.com'
         })
         const matter = await Matter.create({
             title: 'Ett seedat ärende',
@@ -29,6 +33,13 @@ async function seed() {
             workerId: worker.id,
             customerId: customerOne.id,
             role: 'worker'
+        })
+        const message = await Message.create({
+            title: 'Ett seedat message',
+            content: 'Ett seedad messagecontent',
+            img: 'Seedad IMGPath',
+            matterId: matter.id,
+            senderId: customerTwo.id,
         })
 
 

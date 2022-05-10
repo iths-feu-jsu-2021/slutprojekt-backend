@@ -5,8 +5,8 @@ const user = require('../models/user')
 module.exports = {
     createUser: async(req, res)=>{
         try{
-            const {role, username, password} = req.body
-            const user = await User.create({role, username, password})
+            const {role, username, password, email} = req.body
+            const user = await User.create({role, username, password, email})
             res.json('User created: ' + user)
         }catch(err){
             console.log('AdminControllerError är ' + err)
@@ -24,7 +24,7 @@ module.exports = {
 
     updateUser: async(req, res)=>{
         try{
-            const {id, username, password, role} = req.body
+            const {id, username, password, role, email} = req.body
             const user = await User.findByPk(id)
             if(password != ''){
                const newPassword = await User.changePassword(password, id)
@@ -40,6 +40,11 @@ module.exports = {
             if(user.role != role  && role != ''){
                 await user.update({
                     role: role
+                })
+            }
+            if(user.email != email  && email != ''){
+                await user.update({
+                    email: email
                 })
             }
             res.json('User updated')

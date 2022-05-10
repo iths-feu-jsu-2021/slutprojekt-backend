@@ -28,6 +28,7 @@ router.get('/', () =>{
 // matter endpoints
 router.post('/matter', auth.checkIfWorker, matterController.create )
 router.get('/matter', matterController.getAll)
+
 // message endpoints
 router.post('/message', messageController.create)
 
@@ -35,7 +36,7 @@ router.post('/message', messageController.create)
 router.get('/customers', customerController.getAll)
 
 //admin enpoints
-router.post('/user', auth.checkIfAdmin, validate.password, adminController.createUser)
+router.post('/user', auth.checkIfAdmin, validate.createUser, adminController.createUser)
 router.get('/user', auth.checkIfAdmin, adminController.getAllUsers)
 router.patch('/user', auth.checkIfAdmin, adminController.updateUser)
 module.exports = router

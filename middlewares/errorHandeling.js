@@ -1,6 +1,11 @@
 
 module.exports = {
-errorHandler: (error, req, res, next) => {
+
+    emailInUse: (req, res, next) => {
+        const {email} = req.body
+        res.json(`Email adress: ${email} is already in use`)
+    },
+    errorHandler: (error, req, res, next) => {
     if(error instanceof HTTPException){
     console.error(req.method, req.path, error.status, error.message)
     res

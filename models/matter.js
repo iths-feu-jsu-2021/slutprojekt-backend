@@ -14,11 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       Matter.belongsTo(models.User, {
         foreignKey: 'workerId',
         targetKey: 'id',
+        onDelete: 'CASCADE',
         allowNull: false
       })
       Matter.belongsTo(models.User, {
         foreignKey: 'customerId',
         targetKey: 'id',
+        onDelete: 'CASCADE',
         allowNull: false
       })
     }

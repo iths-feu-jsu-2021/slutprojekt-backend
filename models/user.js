@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    role: DataTypes.ENUM('worker', 'customer', 'admin')
+    role: DataTypes.ENUM('worker', 'customer', 'admin'),
+    email: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
@@ -41,7 +42,8 @@ User.authenticate = async (username, password) => {
         const payload = {
             username: user.username,
             id: user.id,
-            role: user.role
+            role: user.role,
+            email: user.email
         }
         return jwt.sign(payload, process.env.JWT_SECRET)
     }

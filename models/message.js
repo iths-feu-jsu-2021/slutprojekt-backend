@@ -10,14 +10,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Message.belongsTo(models.Matter
-        , {
-        foreginKey: 'MatterId',
+      Message.belongsTo(models.Matter,
+        {
+        foreignKey: 'matterId',
+        targetKey: 'id',
         onDelete: 'CASCADE',
         allowNull: false
       }
       )
-      Message.belongsTo(models.User)
+      Message.belongsTo(models.User,
+        {
+          foreignKey: 'senderId',
+          targetKey: 'id',
+          onDelete: 'CASCADE',
+          allowNull: false
+        })
       // define association here
     }
   }

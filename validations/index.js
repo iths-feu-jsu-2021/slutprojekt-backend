@@ -1,4 +1,6 @@
-const { check, body, validationResult } = require('express-validator')
+const { check, body, validationResult } = require('express-validator');
+const {User} = require('../models');
+const errors = require('../middlewares/errorHandeling')
 
 
 const validator = (validations) => async (req,res,next) => {
@@ -18,9 +20,19 @@ const validator = (validations) => async (req,res,next) => {
 
 module.exports = {
 
-    createUser: validator([check('password')
-        .isLength({min: 7, max: 42})
-        .withMessage('Password needs to be between 7 and 42 characters long')])
+    createUser: async(req, res, next)=>{
+      const {email} = req.body
+      const user = await User.findOne({where: {email}})
+      if(user){
+        errors.emailInUse(req, res, next)
+        //throw new Error('This email is already registered.')
+
+      }
+      validator([check('password')
+      .isLength({min: 7, max: 42})
+          .withMessage('Password needs to be between 7 and 42 characters long')])
+
+    }
 
     // password: (req, res, next)=>{
     //     body('password').isLength({ min: 5 })
