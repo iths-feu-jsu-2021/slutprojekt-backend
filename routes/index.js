@@ -25,7 +25,7 @@ router.get('/', () =>{
     res.json('server funkar')
 })
 // matter endpoints
-router.post('/matter', auth.checkIfAdminOrWorker, matterController.create )
+router.post('/matter', validate.createMatter, auth.checkIfAdminOrWorker, matterController.create )
 router.get('/matter', auth.checkIfAdminOrWorker, matterController.getAll)
 router.patch('/matter', auth.checkIfAdminOrWorker, matterController.update)
 
