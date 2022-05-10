@@ -33,6 +33,7 @@ router.get('/matter', matterController.getAll)
 router.post('/message', messageController.create)
 
 // custom endpoints
+//lägg på auth
 router.get('/customers', customerController.getAll)
 
 //admin enpoints
