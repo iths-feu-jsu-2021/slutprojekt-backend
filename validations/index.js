@@ -20,19 +20,32 @@ const validator = (validations) => async (req,res,next) => {
 
 module.exports = {
 
-    createUser: async(req, res, next)=>{
-      const {email} = req.body
-      const user = await User.findOne({where: {email}})
-      if(user){
-        errors.emailInUse(req, res, next)
-        //throw new Error('This email is already registered.')
+     createUser: validator([
+       check('password')
+         .isLength({min: 7, max: 42})
+         .withMessage('Password needs to be between 7 and 42 characters long'),
+       check('role')
+         .isIn(['worker', 'customer', 'admin']),
+       check('username')
+          .exists()
+          .withMessage('Please supply a username'),
+        check('email')
+           .isEmail()
+           .withMessage('Invalid email format')
+       ])
+ }
 
-      }
-      validator([check('password')
-      .isLength({min: 7, max: 42})
-          .withMessage('Password needs to be between 7 and 42 characters long')])
+      //role, username, password, email
 
-    }
+
+      //async(req, res, next)=>{
+    //   const {email} = req.body
+    //   const user = await User.findOne({where: {email}})
+    //   if(user){
+    //     errors.emailInUse(req, res, next)
+    //     //throw new Error('This email is already registered.')
+
+    //   }
 
     // password: (req, res, next)=>{
     //     body('password').isLength({ min: 5 })
@@ -43,4 +56,3 @@ module.exports = {
     //     next()
     // }
 
-}
