@@ -6,6 +6,8 @@ const messageController = require('../controllers/messageController')
 const customerController = require('../controllers/customerController')
 const adminController = require('../controllers/adminController')
 
+const errorHandler = require('../middlewares/errorHandeling')
+
 // const validations = require('../validations')
 const validate = require('../validations')
 
