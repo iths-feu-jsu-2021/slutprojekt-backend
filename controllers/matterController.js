@@ -28,8 +28,7 @@ module.exports = {
     update: async(req, res)=>{
         try {
             const {matterId, status, workerId} = req.body
-            const img = req.file
-            console.log(img)
+            // const img = req.fil
             const matter = await Matter.findOne({where: {id: matterId}})
             if(matter.status != status && status != ''){
                 await matter.update({
@@ -41,13 +40,28 @@ module.exports = {
                     workerId: workerId
                 })
             }
-            if (img) {
-                await Image.upload(img)
-            }
+            // if (img) {
+            //     await Image.upload(img)
+            // }
             res.json('Matter updated')
         }catch(err){
             console.log(err)
         }
+    },
+
+    uploadImg: async(req, res)=>{
+        try{
+            //console.log('req.file är: ' + req.file)
+            const userId = req.user.id
+            const matterId = req.params.id
+            console.log(req.file)
+            const image = await Image.create({path: req.file.path, matterId: matterId, userId: userId })
+        //    const image = await Image.create({})
+            res.json('File uploaded!')
+        }catch(err){
+            console.log('MatterControllerError är ' + err)
+        }
+
     }
 
 }

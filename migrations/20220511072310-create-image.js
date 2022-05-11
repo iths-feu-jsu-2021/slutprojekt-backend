@@ -13,14 +13,13 @@ module.exports = {
         references: {model: 'Matters', key: 'id'},
         onDelete: 'CASCADE'
       },
-      fileName: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Users', key: 'id'},
+        onDelete: 'CASCADE'
       },
-      description: {
+      path: {
         type: Sequelize.STRING
-      },
-      size: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

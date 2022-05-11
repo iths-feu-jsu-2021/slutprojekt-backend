@@ -1,6 +1,4 @@
 'use strict';
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const {
   Model
 } = require('sequelize');
@@ -16,22 +14,21 @@ module.exports = (sequelize, DataTypes) => {
         {
         foreignKey: 'matterId',
         targetKey: 'id',
-        onDelete: 'CASCADE',
         allowNull: false
-      }
-      )
+      }),
+      Image.belongsTo(models.User,{
+        foreignKey: 'userId',
+        targetKey: 'id',
+        allowNull: false
+      })
     }
   }
   Image.init({
-    fileName: DataTypes.STRING,
-    description: DataTypes.STRING,
-    size: DataTypes.INTEGER
+    path: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Image',
   });
-  Image.upload = async (img) => {
-    await upload.single(img)
-  }
+
   return Image;
 };
