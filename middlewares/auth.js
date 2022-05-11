@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
-const errorHandeling = require('./errorHandeling')
+const errorHandler = require('./errorHandeling')
+const {Matter} = require('../models')
+
 
 
 module.exports = {
@@ -8,12 +10,32 @@ module.exports = {
         try {
             const token = req.header('Authorization').replace('Bearer ', '')
             const user = jwt.verify(token, process.env.JWT_SECRET)
-            req.user = user
-            next()
+            if(user){
+                req.user = user
+                next()
+            }else{
+                throw new Error('Denna error ska plockas upp i vår catch hoppas vi')
+            }
             } catch(err) {
-                console.log(err)
+                console.log('Det funkade att fånga errorn. Den lyder: ' + err)
             }
     },
+
+
+    checkYoPrivileges: async(req, res, next)=>{
+       try{
+           const id = req.params.id
+           const matter = await Matter.findByPk(id)
+           if(matter.workerId === req.user.id || matter.customerId === req.user.id){
+               next()
+           }else{
+               throw new Error('CheckYoPrivilegesError Unauthorized')
+           }
+       }catch(err){
+           errorHandler.unauthorized(err, req, res)
+        }
+    },
+
 
     checkIfWorker: async(req, res, next)=>{
         try {

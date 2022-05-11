@@ -25,6 +25,18 @@ module.exports = {
         }
     },
 
+    getOne: async(req, res)=>{
+        const id = req.params.id
+        try{
+            const matter = await Matter.findByPk(id)
+            const images = await Image.findAll({where: {matterId: matter.id}})
+            const responseObject = { matter, images }
+            res.send(responseObject)
+        }catch(err){
+            console.log('MatterController GetOneError är: ' + err)
+        }
+    },
+
     update: async(req, res)=>{
         try {
             const {matterId, status, workerId} = req.body
@@ -56,7 +68,6 @@ module.exports = {
             const matterId = req.params.id
             console.log(req.file)
             const image = await Image.create({path: req.file.path, matterId: matterId, userId: userId })
-        //    const image = await Image.create({})
             res.json('File uploaded!')
         }catch(err){
             console.log('MatterControllerError är ' + err)

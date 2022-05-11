@@ -20,7 +20,7 @@ module.exports = {
     }
     next()
     },
-    unauthorized: (req, res)=>{
-        res.json('Du är inte auktoriserad för att göra detta')
+    unauthorized: (error, req, res)=>{
+        res.json('Du är inte auktoriserad för att göra detta. Error är: ' + error)
     }
 }

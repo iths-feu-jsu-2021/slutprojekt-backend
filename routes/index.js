@@ -14,7 +14,6 @@ const validate = require('../validations')
 
 //middlewares
 const auth = require('../middlewares/auth')
-const img = require('../middlewares/img')
 
 const { Router } = require('express')
 const res = require('express/lib/response')
@@ -32,12 +31,8 @@ router.get('/', () =>{
 router.post('/matter', validate.createMatter, auth.checkIfAdminOrWorker, matterController.create )
 router.get('/matter', auth.checkIfAdminOrWorker, matterController.getAll)
 router.patch('/matter', auth.checkIfAdminOrWorker, matterController.update)
-router.post('/matter/:id/image', upload.single('file'), matterController.uploadImg)
-
-
-
-
-
+router.post('/matter/:id/image', auth.checkYoPrivileges, upload.single('file'), matterController.uploadImg)
+router.get('/matter/:id/image', matterController.getOne)
 
 //image enpoints
 //Lägg på en validation som kollar att en req.file finns i requesten
