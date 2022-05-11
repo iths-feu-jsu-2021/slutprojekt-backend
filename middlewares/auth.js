@@ -45,7 +45,7 @@ module.exports = {
                     console.log(err)
                 }
             },
-            checkIfAdminOrWorker: async(req, res, next)=>{
+            checkIfAdminOrWorker: async(req, res, next)=> {
                 try {
                     if(req.user.role === 'admin' || req.user.role === 'worker'){
                         next()

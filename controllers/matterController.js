@@ -1,5 +1,4 @@
-const {Matter} = require('../models')
-const user = require('../models/user')
+const {Matter, Image} = require('../models')
 // const jwt = require('jsonwebtoken')
 
 module.exports = {
@@ -29,16 +28,21 @@ module.exports = {
     update: async(req, res)=>{
         try {
             const {matterId, status, workerId} = req.body
+            const img = req.file
+            console.log(img)
             const matter = await Matter.findOne({where: {id: matterId}})
             if(matter.status != status && status != ''){
                 await matter.update({
                     status: status
                 })
             }
-            if(matter.workerId != workerId && workerId != ''){
+            if( req.user.role === 'admin' && matter.workerId != workerId && workerId != ''){
                 await matter.update({
                     workerId: workerId
                 })
+            }
+            if (img) {
+                await Image.upload(img)
             }
             res.json('Matter updated')
         }catch(err){

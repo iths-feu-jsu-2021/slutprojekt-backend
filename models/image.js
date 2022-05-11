@@ -1,39 +1,37 @@
 'use strict';
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Message extends Model {
+  class Image extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Message.belongsTo(models.Matter,
+      Image.belongsTo(models.Matter,
         {
         foreignKey: 'matterId',
         targetKey: 'id',
+        onDelete: 'CASCADE',
         allowNull: false
       }
       )
-      Message.belongsTo(models.User,
-        {
-          foreignKey: 'senderId',
-          targetKey: 'id',
-          allowNull: false
-        })
-      // define association here
     }
   }
-  Message.init({
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    img: DataTypes.STRING,
+  Image.init({
+    fileName: DataTypes.STRING,
+    description: DataTypes.STRING,
+    size: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Message',
-    tableName: 'Messages'
+    modelName: 'Image',
   });
-  return Message;
+  Image.upload = async (img) => {
+    await upload.single(img)
+  }
+  return Image;
 };
