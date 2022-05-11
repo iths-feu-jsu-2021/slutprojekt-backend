@@ -1,7 +1,8 @@
+//express Router
+const { Router } = require('express')
 //multer
 const multer  = require('multer')
 const upload = multer({ dest: './public/data/uploads/' })
-
 //controllers
 const accountController = require('../controllers/accountController')
 const matterController = require('../controllers/matterController')
@@ -15,13 +16,11 @@ const validate = require('../validations')
 //middlewares
 const auth = require('../middlewares/auth')
 
-const { Router } = require('express')
-const res = require('express/lib/response')
+// const res = require('express/lib/response')
 const router = new Router()
 
 //account endpoints
-//OBS denna endpoint och router post /user gör samma sak! Välj vilken som ska användas.
-//router.post('/register', accountController.create)
+
 router.post('/login', accountController.login)
 router.use(auth.setRole)
 router.get('/', () =>{
@@ -30,15 +29,15 @@ router.get('/', () =>{
 // matter endpoints
 router.post('/matter', validate.createMatter, auth.checkIfAdminOrWorker, matterController.create )
 router.get('/matter', auth.checkIfAdminOrWorker, matterController.getAll)
-router.patch('/matter', auth.checkIfAdminOrWorker, matterController.update)
-router.post('/matter/:id/image', auth.checkYoPrivileges, upload.single('file'), matterController.uploadImg)
-router.get('/matter/:id/image', matterController.getOne)
+router.patch('/matter', validate.updateMatter, auth.checkIfAdminOrWorker, matterController.update)
+router.post('/matter/:id/image', auth.relationToMatter, upload.single('file'), validate.imgType, matterController.uploadImg)
+router.get('/matter/:id/image', auth.relationToMatter, matterController.getOne)
 
 //image enpoints
 //Lägg på en validation som kollar att en req.file finns i requesten
 
 // message endpoints
-router.post('/message', messageController.create)
+router.post('/message/:id', auth.relationToMatter, messageController.create)
 
 // custom endpoints
 //lägg på auth
@@ -48,4 +47,7 @@ router.get('/customers', auth.checkIfAdminOrWorker, customerController.getAll)
 router.post('/user', validate.createUser, auth.checkIfAdmin, adminController.createUser)
 router.get('/user', auth.checkIfAdmin, adminController.getAllUsers)
 router.patch('/user', auth.checkIfAdmin, adminController.updateUser)
+
+
+
 module.exports = router

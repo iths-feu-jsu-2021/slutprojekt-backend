@@ -1,6 +1,7 @@
 const { check, body, validationResult } = require('express-validator');
 const {User} = require('../models');
-const errors = require('../middlewares/errorHandeling')
+const errors = require('../middlewares/errorHandeling');
+// const { ValidationError } = require('sequelize/types');
 
 
 const validator = (validations) => async (req,res,next) => {
@@ -31,6 +32,24 @@ module.exports = {
           .exists()
           .withMessage('Please supply the ID of concerned customer')
     ]),
+
+   updateMatter: validator([
+     check('matterId')
+      .exists()
+      .withMessage('Please supply a matterId'),
+     check('status')
+      .isIn(['open', 'pending', 'closed'])
+      .withMessage('Not a valid status'),
+     check('workerId')
+      .exists()
+      .withMessage('Please supply a matterId')
+   ]),
+
+   imgType: validator([
+      check('file')
+        .isMimeType()
+        .withMessage('invalid file format')
+   ]),
 
      createUser: validator([
        check('password')

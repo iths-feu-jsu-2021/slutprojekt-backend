@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
-const errorHandler = require('./errorHandeling')
 const {Matter} = require('../models')
+const {authError} = require('../errors')
 
 
 
@@ -14,28 +14,28 @@ module.exports = {
                 req.user = user
                 next()
             }else{
-                throw new Error('Denna error ska plockas upp i vår catch hoppas vi')
+                throw new authError()
             }
             } catch(err) {
-                console.log('Det funkade att fånga errorn. Den lyder: ' + err)
+               next(err)
             }
     },
 
 
-    checkYoPrivileges: async(req, res, next)=>{
+    relationToMatter: async(req, res, next)=>{
        try{
            const id = req.params.id
            const matter = await Matter.findByPk(id)
            if(matter.workerId === req.user.id || matter.customerId === req.user.id){
                next()
            }else{
-               throw new Error('CheckYoPrivilegesError Unauthorized')
+               throw new authError()
            }
        }catch(err){
-           errorHandler.unauthorized(err, req, res)
+        //    errorHandler.unauthorized(err, req, res)
+        next(err)
         }
     },
-
 
     checkIfWorker: async(req, res, next)=>{
         try {

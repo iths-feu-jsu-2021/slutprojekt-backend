@@ -5,7 +5,6 @@ module.exports = {
 
     create: async (req, res) => {
 
-        console.log(req.body)
         const username = req.body.username
         const password = req.body.password
         const role = req.body.role
@@ -14,7 +13,7 @@ module.exports = {
             res.json('User created')
         }
         catch(err){
-            console.log('AccountControllerError är: ' + err)
+            next(err)
         }
     },
 
