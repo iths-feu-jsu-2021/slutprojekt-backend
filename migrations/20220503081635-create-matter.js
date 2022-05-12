@@ -11,22 +11,27 @@ module.exports = {
       status: {
         type: Sequelize.ENUM('open', 'pending', 'closed'),
         defaultValue: 'pending',
+        allowNull: false
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       content: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       workerId: {
         type: Sequelize.INTEGER,
         references: {model: 'Users', key: 'id'},
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        allowNull: false
       },
       customerId: {
         type: Sequelize.INTEGER,
         references: {model: 'Users', key: 'id'},
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

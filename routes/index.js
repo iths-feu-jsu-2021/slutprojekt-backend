@@ -33,7 +33,7 @@ router.patch('/matter', validate.updateMatter, auth.checkIfAdminOrWorker, matter
 router.post('/matter/:id/image', auth.relationToMatter, upload.single('file'), matterController.uploadImg)
 router.get('/matter/:id/image', auth.relationToMatter, matterController.getOne)
 router.post('/matter/:id/message', auth.relationToMatter, messageController.create)
-router.get('/matter:id/message', auth.relationToMatter, messageController.getAll)
+router.get('/matter/:id/message', auth.relationToMatter, messageController.getAll)
 
 //image enpoints
 //Lägg på en validation som kollar att en req.file finns i requesten
