@@ -30,7 +30,7 @@ router.get('/', () =>{
 router.post('/matter', validate.createMatter, auth.checkIfAdminOrWorker, matterController.create )
 router.get('/matter', auth.checkIfAdminOrWorker, matterController.getAll)
 router.patch('/matter', validate.updateMatter, auth.checkIfAdminOrWorker, matterController.update)
-router.post('/matter/:id/image', auth.relationToMatter, upload.single('file'), validate.imgType, matterController.uploadImg)
+router.post('/matter/:id/image', auth.relationToMatter, upload.single('file'), matterController.uploadImg)
 router.get('/matter/:id/image', auth.relationToMatter, matterController.getOne)
 
 //image enpoints

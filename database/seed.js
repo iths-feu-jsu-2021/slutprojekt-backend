@@ -5,8 +5,8 @@ async function seed() {
     try{
        const worker = await User.create({
             role: 'worker',
-            username: 'Testoigenännu en gång',
-            password: 'skjdfhsösdfsdfkgf',
+            username: 'Makke',
+            password: 'Bygger',
             email: 'worker@email.com'
         })
        const customerOne = await User.create({

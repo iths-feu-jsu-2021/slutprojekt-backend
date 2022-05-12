@@ -72,10 +72,10 @@ module.exports = {
                     if(req.user.role === 'admin' || req.user.role === 'worker'){
                         next()
                     }else{
-                        errorHandeling.unauthorized(req, res)
+                        throw new authError()
                     }
                 } catch(err) {
-                    console.log(err)
+                  next(err)
                 }
             }
         }

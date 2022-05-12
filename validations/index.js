@@ -45,11 +45,11 @@ module.exports = {
       .withMessage('Please supply a matterId')
    ]),
 
-   imgType: validator([
-      check('file')
-        .isMimeType()
-        .withMessage('invalid file format')
-   ]),
+  //  imgType: validator([
+  //     check('file')
+  //       .isMimeType()
+  //       .withMessage('invalid file format')
+  //  ]),
 
      createUser: validator([
        check('password')

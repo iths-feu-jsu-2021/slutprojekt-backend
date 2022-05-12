@@ -9,12 +9,11 @@ module.exports = {
     //     res.json(`Email adress: ${email} is already in use`)
     // },
     errorHandler: (error, req, res, next) => {
-    // if(error instanceof HTTPException){
-    // console.error(req.method, req.path, error.status, error.message)
-    // res
-    // .status(error.code)
-    // .json({error: error.message})
-    // }
+    if(error instanceof authError){
+      res
+      .status(401)
+      .json({error: error.message})
+    }
     if(error instanceof BaseError){
         res
         .status(400)
@@ -28,9 +27,6 @@ module.exports = {
       res
         .status(500)
         .json({error: 'An error occured'})
-    }
-    if(error instanceof authError){
-        console.log('Message: ' + error.message + 'Status: ' + error.errorCode )
     }
 
 
