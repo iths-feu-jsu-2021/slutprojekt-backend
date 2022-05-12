@@ -4,7 +4,8 @@ const {Matter, Image} = require('../models')
 module.exports = {
     create: async (req, res) =>{
 
-        const {title, content, customerId, workerId} = req.body
+        const {title, content, customerId} = req.body
+        const workerId = req.user.id
         try{
             await Matter.create({title, content, customerId, workerId})
             res.json('Matter was created')
