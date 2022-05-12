@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
   Message.init({
     title: DataTypes.STRING,
     content: DataTypes.STRING,
-    img: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Message',

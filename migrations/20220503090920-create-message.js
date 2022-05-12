@@ -14,9 +14,6 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      img: {
-        type: Sequelize.STRING
-      },
       matterId: {
         type: Sequelize.INTEGER,
         references: {model: 'Matters', key: 'id'},
