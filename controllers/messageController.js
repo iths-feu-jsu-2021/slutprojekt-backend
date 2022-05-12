@@ -10,12 +10,14 @@ module.exports = {
         catch(err){
             console.log('messageControllerError är: ' + err)
         }
-    }
+    },
 
     getAll: async (req, res)=>{
         try{
             const matters = await Message.findAll({where: {matterId: req.params.id} })
             res.json({matters})
+        }catch(err){
+            next(next)
         }
     }
 }
