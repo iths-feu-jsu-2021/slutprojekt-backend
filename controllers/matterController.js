@@ -1,4 +1,5 @@
 const {Matter, Image} = require('../models')
+const {Op} = require('sequelize')
 // const jwt = require('jsonwebtoken')
 
 module.exports = {
@@ -15,14 +16,16 @@ module.exports = {
         }
     },
 
-    getAll: async(req, res)=>{
+    getAll: async(req, res, next)=>{
         //user.id = req.header
+        const {id} = req.user
         try{
-            const matters = await Matter.findAll({where: {workerId: user.id}} || {where: {customerId: user.id}} )
-            res.json(matters)
+            const matters = await Matter.findAll({where: { [Op.or]: [{workerId: id}, {customerId: id}]}})
+           console.log(matters)
+            res.json({matters})
         }
         catch(err){
-            console.log(err)
+            next(err)
         }
     },
 

@@ -27,17 +27,19 @@ router.get('/', () =>{
     res.json('server funkar')
 })
 // matter endpoints
-router.post('/matter', validate.createMatter, auth.checkIfAdminOrWorker, matterController.create )
-router.get('/matter', auth.checkIfAdminOrWorker, matterController.getAll)
+router.post('/matter', validate.createMatter, auth.checkIfAdminOrWorker, matterController.create)
+router.get('/matter', matterController.getAll)
 router.patch('/matter', validate.updateMatter, auth.checkIfAdminOrWorker, matterController.update)
 router.post('/matter/:id/image', auth.relationToMatter, upload.single('file'), matterController.uploadImg)
 router.get('/matter/:id/image', auth.relationToMatter, matterController.getOne)
+router.post('/matter/:id/message', auth.relationToMatter, messageController.create)
+router.get('/matter/:id/message', auth.relationToMatter, messageController.getAll)
 
 //image enpoints
 //Lägg på en validation som kollar att en req.file finns i requesten
 
 // message endpoints
-router.post('/message/:id', auth.relationToMatter, messageController.create)
+// /matter/:id/message
 
 // custom endpoints
 //lägg på auth

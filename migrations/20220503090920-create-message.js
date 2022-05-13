@@ -14,18 +14,17 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      img: {
-        type: Sequelize.STRING
-      },
       matterId: {
         type: Sequelize.INTEGER,
         references: {model: 'Matters', key: 'id'},
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        allowNull: false
       },
       senderId: {
         type: Sequelize.INTEGER,
         references: {model: 'Users', key: 'id'},
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
