@@ -32,7 +32,6 @@ module.exports = {
                throw new authError()
            }
        }catch(err){
-        //    errorHandler.unauthorized(err, req, res)
         next(err)
         }
     },

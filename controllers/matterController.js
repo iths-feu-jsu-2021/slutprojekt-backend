@@ -37,7 +37,7 @@ module.exports = {
             const responseObject = { matter, images }
             res.send(responseObject)
         }catch(err){
-            console.log('MatterController GetOneError är: ' + err)
+         next(err)
         }
     },
 
@@ -64,19 +64,4 @@ module.exports = {
             console.log(err)
         }
     },
-
-    uploadImg: async(req, res)=>{
-        try{
-            //console.log('req.file är: ' + req.file)
-            const userId = req.user.id
-            const matterId = req.params.id
-            console.log(req.file)
-            const image = await Image.create({path: req.file.path, matterId: matterId, userId: userId })
-            res.json('File uploaded!')
-        }catch(err){
-            console.log('MatterControllerError är ' + err)
-        }
-
-    }
-
 }

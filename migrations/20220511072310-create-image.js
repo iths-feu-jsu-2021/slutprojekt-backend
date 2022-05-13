@@ -1,4 +1,7 @@
 'use strict';
+
+const { sequelize } = require("../models");
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Images', {
@@ -7,6 +10,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      fileName: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       matterId: {
         type: Sequelize.INTEGER,
