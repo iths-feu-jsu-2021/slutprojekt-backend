@@ -2,7 +2,15 @@
 const { Router } = require('express')
 //multer
 const multer  = require('multer')
-const upload = multer({ dest: './public/data/uploads/' })
+const fileStorageEngine = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './public/data/uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "--" + file.originalname)
+    }
+})
+const upload = multer({ storage: fileStorageEngine })
 //controllers
 const accountController = require('../controllers/accountController')
 const matterController = require('../controllers/matterController')
