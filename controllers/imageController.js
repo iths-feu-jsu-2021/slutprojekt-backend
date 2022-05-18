@@ -7,7 +7,7 @@ uploadImg: async(req, res)=>{
         //console.log('req.file är: ' + req.file)
         const userId = req.user.id
         const matterId = req.params.id
-        const name = req.file.originalname
+        const name = req.file.filename
         console.log(req.file)
         const image = await Image.create({path: req.file.path, matterId: matterId, userId: userId, fileName: name})
         res.json('File uploaded!')
@@ -20,7 +20,7 @@ getOne: async (req, res, next) => {
     const id = req.params.image_id
     const image = await Image.findByPk(id)
         const response =
-          path.join(__dirname, "..", "public", "data", "uploads", image.fileName)
+          path.join(__dirname, "..", "public/data/uploads", image.fileName)
           console.log(response)
         res.sendFile( response );
     // res.sendFile(image.path, root: path.join(__dirname))
