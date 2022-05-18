@@ -1,0 +1,46 @@
+'use strict';
+
+const { sequelize } = require("../models");
+
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Images', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      fileName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      matterId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Matters', key: 'id'},
+        onDelete: 'CASCADE',
+        allowNull: false
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Users', key: 'id'},
+        onDelete: 'CASCADE',
+        allowNull: false
+      },
+      path: {
+        type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Images');
+  }
+};

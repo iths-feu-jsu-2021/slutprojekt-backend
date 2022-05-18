@@ -1,2 +1,4 @@
 node_modules
 ingeBra.db
+.env
+foo.js
